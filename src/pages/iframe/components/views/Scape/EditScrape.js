@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Store } from "webext-redux";
 import jsPDF from "jspdf";
+import "jspdf-autotable";
 import { Link } from "react-router-dom";
 import { renderToString } from "react-dom/server";
 import "./EditScrape.css";
@@ -98,33 +99,23 @@ class EditScrape extends Component {
   };
 
   print = e => {
-    let lMargin = 15; //left margin in mm
-    let rMargin = 15; //right margin in mm
-    let pdfInMM = 210; // width of A4 in mm
-
-    var doc = new jsPDF();
-    doc.text("Resume:", 10, 10);
+    let fields = [];
 
     for (let i = 0; i < this.state.scrapedFields.length; i++) {
-      let yaxis = 30 + 30 * i;
-      let line = doc.splitTextToSize(
-        `${this.state.scrapedFields[i].field}: ${
-          this.state.scrapedFields[i].text
-        } `,
-        pdfInMM - lMargin - rMargin
-      );
-      doc.text(lMargin, yaxis, line);
-
-      // doc.text(
-      //   `${this.state.scrapedFields[i].field}: ${
-      //     this.state.scrapedFields[i].text
-      //   } `,
-      //   20,
-      //   yaxis
-      // );
+      fields[i] = [
+        this.state.scrapedFields[i].field,
+        this.state.scrapedFields[i].text
+      ];
     }
 
-    doc.save(`Info.pdf`);
+    let doc = new jsPDF();
+
+    doc.autoTable({
+      head: [["Field", "Data"]],
+      body: fields
+    });
+
+    doc.save("profile.pdf");
     this.props.history.push("/forms");
   };
 

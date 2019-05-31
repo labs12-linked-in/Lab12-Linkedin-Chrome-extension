@@ -69,3 +69,7 @@
 .esInput input {
   width: 250px;
 }
+
+.printThis {
+  color: red;
+}
