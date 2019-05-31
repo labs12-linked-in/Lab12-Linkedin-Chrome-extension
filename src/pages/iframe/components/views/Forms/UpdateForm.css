@@ -199,6 +199,7 @@
 .DeleteFieldEF {
   color: #b50707;
   border-color: #b50707;
+  background-color: white;
   border-radius: 5px;
   font-size: 13px;
   cursor: pointer;
