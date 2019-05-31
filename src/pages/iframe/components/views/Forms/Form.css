@@ -30,8 +30,11 @@
 
 .Delete {
   color: #b50707;
-  border-color: #b50707;
+  border: 1px solid #b50707;
+  border-radius: 5px;
+  cursor: pointer;
   background-color: white;
+  box-shadow: none;
 }
 .Delete:hover {
   background-color: #b50707;
